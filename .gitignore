@@ -245,3 +245,4 @@ ModelManifest.xml
 .fake/
 /src/Angular2AspCoreDemo/wwwroot/appScripts
 /src/Angular2AspCoreDemo/wwwroot/libs
+/src/Angular2AspCoreDemo/typings

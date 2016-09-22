@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OnActivate, RouteSegment } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { Hero } from './hero';
 import { HeroService } from './hero.service';
@@ -8,19 +8,21 @@ import { HeroService } from './hero.service';
   selector: 'my-hero-detail',
   templateUrl: 'app/hero-detail.component.html',
 })
-export class HeroDetailComponent implements OnActivate {
-  hero: Hero;
+export class HeroDetailComponent implements OnInit {
+    hero: Hero;
+    sub: any;
 
-  constructor(
-    private heroService: HeroService) {
+  constructor(private heroService: HeroService, private route: ActivatedRoute) {
   }
 
-  routerOnActivate(curr: RouteSegment) {
-    let id = +curr.getParam('id');
-    this.heroService.getHero(id)
-      .then(hero => this.hero = hero);
+  ngOnInit() {
+      this.sub = this.route.params.subscribe(params => {
+          let id = +params['id'];
+          this.heroService.getHero(id)
+              .then(hero => this.hero = hero);
+      });
   }
-
+  
   goBack() {
     window.history.back();
   }
