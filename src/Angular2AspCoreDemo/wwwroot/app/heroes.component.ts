@@ -1,17 +1,15 @@
-import { Component } from '@angular/core';
-import { OnActivate, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Hero } from './hero';
 import { HeroDetailComponent } from './hero-detail.component';
 import { HeroService } from './hero.service';
-import { OnInit } from '@angular/core';
 
 @Component({
   selector: 'my-heroes',
   templateUrl: 'app/heroes.component.html',
-  styleUrls: ['app/heroes.component.css'],
-    directives: [HeroDetailComponent]
+  styleUrls: ['app/heroes.component.css']
 })
-export class HeroesComponent implements OnActivate {
+export class HeroesComponent implements OnInit {
   title = 'Tour of Heroes';
   heroes: Hero[];
   selectedHero: Hero;
@@ -20,7 +18,7 @@ export class HeroesComponent implements OnActivate {
   getHeroes() {
       this.heroService.getHeroes().then(heroes => this.heroes = heroes);
   }
-  routerOnActivate() {
+  ngOnInit() {
     this.getHeroes();
   }
   gotoDetail() {
