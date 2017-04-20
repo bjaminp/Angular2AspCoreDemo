@@ -7,6 +7,7 @@ Click here to learn more. http://go.microsoft.com/fwlink/?LinkId=518007
 var gulp = require('gulp');
 var clean = require('gulp-clean');
 var ts = require('gulp-typescript');
+var sourcemaps = ('gulp-sourcemaps');
 
 var destPath = './wwwroot/libs/';
 
@@ -35,24 +36,15 @@ gulp.task("scriptsNStyles", function () {
 });
 
 var tsProject = ts.createProject('tsconfig.json');
-gulp.task('ts', function (done) {
-    var tsResult = tsProject.src().pipe(ts(tsProject));
-    return tsResult.js.pipe(gulp.dest('./wwwroot/appScripts'));
+gulp.task('ts', function () {
+    var tsResult = tsProject.src()
+        .pipe(sourcemaps.init())
+        .pipe(tsProject());
+    return tsResult.js
+        .pipe(sourcemaps.write('.',
+            {
+                includeContent: false,
+                sourceRoot: 'http://localhost:53663/'
+            }))
+        .pipe(gulp.dest('./wwwroot/appScripts'));
 });
-
-gulp.task("copyAssets", function () {
-    return gulp.src(['.\\wwwroot\\app\\**\\*.{html,css}'])
-        .pipe(gulp.dest('.\\wwwroot\\appScripts\\'));
-});
-
-gulp.task("watch", function () {
-    return gulp.watch(['.\\wwwroot\\app\\**\\*.{html,css}'], ['copyAssets']);
-});
-
-//gulp.task('watch', ['watch.ts']);
-
-//gulp.task('watch.ts', ['ts'], function () {
-//    return gulp.watch('scripts/*.ts', ['ts']);
-//});
-
-//gulp.task('default', ['scriptsNStyles', 'watch']);
