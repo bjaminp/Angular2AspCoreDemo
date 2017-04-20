@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "module": "commonjs",
+    "noEmitOnError": true,
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "target": "es5",
+    "moduleResolution": "node",
+    "outDir": "./wwwroot/appScripts/",
+    "lib": [ "es2015", "dom" ],
+    "compileOnSave": true 
+  },
+  "exclude": [
+    "node_modules",
+    "wwwroot/libs",
+    "typings/main",
+    "typings/main.d.ts"
+  ]
+}
